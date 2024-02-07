@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BulkyWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240206114155_SeedCategoryTable")]
+    [Migration("20240207101919_SeedCategoryTable")]
     partial class SeedCategoryTable
     {
         /// <inheritdoc />
@@ -41,7 +41,7 @@ namespace BulkyWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
