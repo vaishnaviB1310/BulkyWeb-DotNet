@@ -1,6 +1,14 @@
 ﻿@model Category
-
-    <form  method="POST" >
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient mt-0 py-3">
+    <div class="row">
+         <div class="col-12 text-center">
+             <h2 class="text-white py-2">Create Category</h2>
+         </div>
+    </div>
+    </div>
+    <div class="card-body p-4">
+         <form  method="POST" >
         <input asp-for="Id" hidden/>
         <div class="formBody">
             <div class="border p-3 mt-4">
@@ -8,7 +16,7 @@
                     <h2 class="text-primary">Edit Category</h2>
                     <hr/>
                 </div>
-            @* <div asp-validation-summary="ModelOnly"></div>*@
+                    @* <div asp-validation-summary="ModelOnly"></div>*@
                 <div class="mb-3 row p-1">
                     <label asp-for="Name" class="p-0"></label>
                     <input asp-for="Name"  class="form-control"/>
@@ -36,6 +44,10 @@
 
         </div>
     </form>
+    </div>
+
+</div>
+   
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial"/>
