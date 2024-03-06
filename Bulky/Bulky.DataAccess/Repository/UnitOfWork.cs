@@ -4,23 +4,26 @@ using BulkyBookWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository
 {
-    public  class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext _db;
-        public CategoryRepository(ApplicationDbContext db) : base(db) 
-            {
-            _db = db;
-        }
-       
-        public void Update(Category obj)
+        public ICategoryRepository Category {get;private set;}
+
+    public UnitOfWork(ApplicationDbContext db) 
         {
-            _db.Category.Update(obj);
+            _db = db;
+        Category = new CategoryRepository(_db);
+        }
+
+        public void Save()
+        {
+            _db.SaveChanges();
         }
     }
 }
