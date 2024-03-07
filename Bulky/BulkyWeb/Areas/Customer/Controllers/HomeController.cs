@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace BulkyBookWeb.Areas.Customer.Controllers
-
-      [Area("Admin")]
+{ 
+      [Area("Customer")]
 public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
