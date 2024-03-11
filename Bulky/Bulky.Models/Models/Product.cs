@@ -15,11 +15,11 @@ namespace BulkyBook.Models
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
-        public int ISBN { get; set; }
-        public int Author { get; set; }
+        public string ISBN { get; set; }
+        public string Author { get; set; }
         [Required]
         [Display(Name = "List Price")]
-        [Range(1,1000)]
+        [Range(1, 1000)]
         public int ListPrice { get; set; }
 
         [Required]
