@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BulkyBookWeb.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BulkyBook.Models
 {
@@ -36,5 +38,10 @@ namespace BulkyBook.Models
         [Display(Name = "Price for 100+")]
         [Range(1, 1000)]
         public int Price100 { get; set; }
+
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

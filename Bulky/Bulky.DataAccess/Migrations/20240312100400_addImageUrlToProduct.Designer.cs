@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BulkyBook.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240311110839_product")]
-    partial class product
+    [Migration("20240312100400_addImageUrlToProduct")]
+    partial class addImageUrlToProduct
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace BulkyBook.DataAccess.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("BulkyBook.Models.Models.Product", b =>
+            modelBuilder.Entity("BulkyBook.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,11 +36,18 @@ namespace BulkyBook.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -62,6 +69,8 @@ namespace BulkyBook.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -69,8 +78,10 @@ namespace BulkyBook.DataAccess.Migrations
                         {
                             Id = 1,
                             Author = "Billy Spark",
+                            CategoryId = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SWD9999001",
+                            ImageUrl = "",
                             ListPrice = 99,
                             Price = 90,
                             Price100 = 80,
@@ -81,8 +92,10 @@ namespace BulkyBook.DataAccess.Migrations
                         {
                             Id = 2,
                             Author = "Nancy Hoover",
+                            CategoryId = 1,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "CAW777777701",
+                            ImageUrl = "",
                             ListPrice = 40,
                             Price = 30,
                             Price100 = 20,
@@ -93,8 +106,10 @@ namespace BulkyBook.DataAccess.Migrations
                         {
                             Id = 3,
                             Author = "Julian Button",
+                            CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "RITO5555501",
+                            ImageUrl = "",
                             ListPrice = 55,
                             Price = 50,
                             Price100 = 35,
@@ -105,8 +120,10 @@ namespace BulkyBook.DataAccess.Migrations
                         {
                             Id = 4,
                             Author = "Abby Muscles",
+                            CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "WS3333333301",
+                            ImageUrl = "",
                             ListPrice = 70,
                             Price = 65,
                             Price100 = 55,
@@ -117,8 +134,10 @@ namespace BulkyBook.DataAccess.Migrations
                         {
                             Id = 5,
                             Author = "Ron Parker",
+                            CategoryId = 2,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "SOTJ1111111101",
+                            ImageUrl = "",
                             ListPrice = 30,
                             Price = 27,
                             Price100 = 20,
@@ -129,8 +148,10 @@ namespace BulkyBook.DataAccess.Migrations
                         {
                             Id = 6,
                             Author = "Laura Phantom",
+                            CategoryId = 3,
                             Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
                             ISBN = "FOT000000001",
+                            ImageUrl = "",
                             ListPrice = 25,
                             Price = 23,
                             Price100 = 20,
@@ -178,6 +199,17 @@ namespace BulkyBook.DataAccess.Migrations
                             DisplayOrder = 3,
                             Name = "History"
                         });
+                });
+
+            modelBuilder.Entity("BulkyBook.Models.Product", b =>
+                {
+                    b.HasOne("BulkyBookWeb.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }
